@@ -83,7 +83,7 @@ export default class SearchField extends React.Component {
       <Grid className='search-field-grid'>
         <Grid.Column width={12} verticalAlign='middle' textAlign='center'>
           <Header as='h1' textAlign='center'>
-            Airbnb Review Data for Austin, TX
+            Cloud Garage Reference Case Discovery
           </Header>
           <Input
             className='searchinput'
@@ -101,7 +101,7 @@ export default class SearchField extends React.Component {
               onChange={this.toggleCheckbox.bind(this, 'queryType')}
             />
           </Grid.Row>
-          <Grid.Row>
+          {/* <Grid.Row>
             <Checkbox 
               label='Passage Search'
               checked={ returnPassages }
@@ -114,7 +114,7 @@ export default class SearchField extends React.Component {
               checked={ limitResults }
               onChange={this.toggleCheckbox.bind(this, 'limitResults')}
             />
-          </Grid.Row>
+          </Grid.Row> */}
         </Grid.Column>
       </Grid>
     );

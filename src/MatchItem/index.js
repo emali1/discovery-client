@@ -41,10 +41,7 @@ const MatchItem = props => (
       Score: { props.score }
     </List.Content>
     <List.Content>
-      Date: { props.date }
-    </List.Content>
-    <List.Content>
-      Sentiment: { props.sentiment }
+      URL: { props.url }
     </List.Content>
   </List.Item>
 );
@@ -54,9 +51,9 @@ MatchItem.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   moreButton: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   score: PropTypes.string.isRequired,
-  sentiment: PropTypes.object.isRequired
+  // sentiment: PropTypes.object.isRequired
 };
 
 // export so we are visible to parent

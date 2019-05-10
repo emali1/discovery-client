@@ -27,8 +27,8 @@ import ConceptsFilter from './ConceptsFilter';
 import KeywordsFilter from './KeywordsFilter';
 import EntityTypesFilter from './EntityTypesFilter';
 import TagCloudRegion from './TagCloudRegion';
-import TrendChart from './TrendChart';
-import SentimentChart from './SentimentChart';
+// import TrendChart from './TrendChart';
+// import SentimentChart from './SentimentChart';
 import { Grid, Dimmer, Button, Menu, Dropdown, Divider, Loader, Accordion, Icon, Header, Statistic } from 'semantic-ui-react';
 const utils = require('../lib/utils');
 
@@ -70,11 +70,11 @@ class Main extends React.Component {
       // tag cloud
       tagCloudType,
       // trending chart
-      trendData,
-      trendError,
-      trendTerm,
+      // trendData,
+      // trendError,
+      // trendTerm,
       // sentiment chart
-      sentimentTerm
+      // sentimentTerm
     } = this.props;
 
     // change in state fires re-render of components
@@ -107,12 +107,12 @@ class Main extends React.Component {
       // tag cloud
       tagCloudType: tagCloudType || utils.ENTITY_FILTER,
       // trending chart
-      trendData: trendData || null,
-      trendError: trendError,
-      trendTerm: trendTerm || utils.TRENDING_TERM_ITEM,
-      trendLoading: false,
+      // trendData: trendData || null,
+      // trendError: trendError,
+      // trendTerm: trendTerm || utils.TRENDING_TERM_ITEM,
+      // trendLoading: false,
       // sentiment chart
-      sentimentTerm: sentimentTerm || utils.SENTIMENT_TERM_ITEM,
+      // sentimentTerm: sentimentTerm || utils.SENTIMENT_TERM_ITEM,
       // misc panel
       currentPage: currentPage || '1',  // which page of matches are we showing
       activeFilterIndex: 0,             // which filter index is expanded/active
@@ -435,6 +435,7 @@ class Main extends React.Component {
    * discovery service.
    */
   fetchData(query, clearFilters) {
+    console.log('in fetchdata')
     const searchQuery = query;
     var { 
       selectedEntities, 
@@ -477,14 +478,21 @@ class Main extends React.Component {
       query: searchQuery,
       filters: filterString,
       count: (limitResults == true ? 100 : 1000),
-      sort: sortOrder,
-      returnPassages: returnPassages,
+      // sort: '-result_metadata.confidence',    //Do NOT use this parameters, showhow it would reset all score as 1
+      returnPassages: false,
       queryType: (queryType === utils.QUERY_NATURAL_LANGUAGE ? 
         'natural_language_query' : 'query:'),
     });
 
+    // const fullUrl = req.protocol + '://' + req.get('host');
+    const fullUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+
+
+    console.log(fullUrl);
+
+
     // send request
-    fetch(`/api/search?${qs}`)
+    fetch(fullUrl+`/api/search?${qs}`)
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -494,6 +502,7 @@ class Main extends React.Component {
       })
       .then(json => {
         var data = utils.parseData(json);
+        // matches = utils.formatData(matches, []);
         var passages = [];
 
         if (returnPassages) {
@@ -901,7 +910,7 @@ class Main extends React.Component {
 
             {/* Tag Cloud Region */}
     
-            <Grid.Row>
+            {/* <Grid.Row>
               <TagCloudRegion
                 entities={entities}
                 categories={categories}
@@ -911,13 +920,13 @@ class Main extends React.Component {
                 tagCloudType={tagCloudType}
                 onTagItemSelected={this.tagItemSelected.bind(this)}
               />
-            </Grid.Row>
+            </Grid.Row> */}
             
           </Grid.Column>
 
           {/* Results */}
 
-          <Grid.Column width={7}>
+          <Grid.Column width={10}>
             <Grid.Row>
               {loading ? (
                 <div className="results">
@@ -938,11 +947,11 @@ class Main extends React.Component {
                             Matches
                           </Header.Content>
                         </Header>
-                        <Statistic.Group
+                        {/* <Statistic.Group
                           size='mini'
                           items={ stat_items }
-                        />
-                        <Menu compact className="sort-dropdown">
+                        /> */}
+                        {/* <Menu compact className="sort-dropdown">
                           <Icon name='sort' size='large' bordered inverted />
                           <Dropdown 
                             item
@@ -950,7 +959,7 @@ class Main extends React.Component {
                             value={ sortOrder }
                             options={ utils.sortTypes }
                           />
-                        </Menu>
+                        </Menu> */}
                       </div>
                       <div>
                         {this.getMatches()}
@@ -977,12 +986,25 @@ class Main extends React.Component {
             </Grid.Row>
           </Grid.Column>
 
-          <Grid.Column width={6}>
+          <Grid.Column width={3}>
 
+            {/* Tag Cloud Region */}
+    
+            <Grid.Row>
+              <TagCloudRegion
+                entities={entities}
+                categories={categories}
+                concepts={concepts}
+                keywords={keywords}
+                entityTypes={entityTypes}
+                tagCloudType={tagCloudType}
+                onTagItemSelected={this.tagItemSelected.bind(this)}
+              />
+            </Grid.Row>
             {/* Sentiment Chart Region */}
 
             <Grid.Row className='rrr'>
-              <SentimentChart
+              {/* <SentimentChart
                 entities={entities}
                 categories={categories}
                 concepts={concepts}
@@ -990,7 +1012,7 @@ class Main extends React.Component {
                 entityTypes={entityTypes}
                 term={sentimentTerm}
                 onSentimentTermChanged={this.sentimentTermChanged.bind(this)}
-              />
+              /> */}
             </Grid.Row>
 
             <Divider hidden/>
@@ -1001,7 +1023,7 @@ class Main extends React.Component {
 
             <Grid.Row className='ttt'>
               <div className="trend-chart">
-                <TrendChart
+                {/* <TrendChart
                   trendData={trendData}
                   trendLoading={trendLoading}
                   trendError={trendError}
@@ -1012,7 +1034,7 @@ class Main extends React.Component {
                   entityTypes={entityTypes}
                   term={trendTerm}
                   onGetTrendDataRequest={this.getTrendData.bind(this)}
-                />
+                /> */}
               </div>
             </Grid.Row>
 

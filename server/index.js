@@ -181,6 +181,30 @@ function createServer() {
     var searchParams = queryBuilder.search(params);
     discovery.query(searchParams)
       .then(response => res.json(response))
+      // .then(json => {
+
+      //   // get all the results data in right format
+      //   var matches = utils.parseData(json);
+      //   matches = utils.formatData(matches, []);
+      //   var totals = utils.getTotals(matches);
+
+      //   res.render('index',
+      //     {
+      //       data: matches,
+      //       entities: json,
+      //       categories: json,
+      //       concepts: json,
+      //       keywords: json,
+      //       entityTypes: json,
+      //       searchQuery,
+      //       numMatches: matches.results.length,
+      //       numPositive: totals.numPositive,
+      //       numNeutral: totals.numNeutral,
+      //       numNegative: totals.numNegative,
+      //       error: null
+      //     }
+      //   );
+      // })
       .catch(error => {
         if (error.message === 'Number of free queries per month exceeded') {
           res.status(429).json(error);
@@ -250,7 +274,7 @@ function createServer() {
     console.log('Initial Search Query at start-up');
     const params = queryBuilder.search({ 
       natural_language_query: '',
-      count: 1000,
+      count: 500,
       passages: false
     });
     return new Promise((resolve, reject) => {

@@ -187,8 +187,8 @@ export default class Matches extends React.Component {
                   moreButton= { this.getMoreButton(item) }
                   highlightText={ item.highlightText }
                   score={ this.getScore(item) }
-                  date={ item.date }
-                  sentiment={ this.getSentiment(item) }
+                  url={ item.url }
+                  // sentiment={ this.getSentiment(item) }
                 />)
               }
             </List>

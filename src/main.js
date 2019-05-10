@@ -951,7 +951,7 @@ class Main extends React.Component {
                           size='mini'
                           items={ stat_items }
                         /> */}
-                        {/* <Menu compact className="sort-dropdown">
+                        <Menu compact className="sort-dropdown">
                           <Icon name='sort' size='large' bordered inverted />
                           <Dropdown 
                             item
@@ -959,7 +959,7 @@ class Main extends React.Component {
                             value={ sortOrder }
                             options={ utils.sortTypes }
                           />
-                        </Menu> */}
+                        </Menu>
                       </div>
                       <div>
                         {this.getMatches()}

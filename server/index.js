@@ -177,6 +177,8 @@ function createServer() {
     } else {
       params.sort = sort;
     }
+
+    // params.sort = '-confidence'
     
     var searchParams = queryBuilder.search(params);
     discovery.query(searchParams)
